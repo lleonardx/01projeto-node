@@ -58,7 +58,7 @@ async function getRandomBlock(){
         case random < 0.33:
             result = "Reta";
             break;
-        case random < .66:
+        case random < 0.66:
             result = "Curva";
             break;
         default:
@@ -67,8 +67,12 @@ async function getRandomBlock(){
     return result;
 }
 
-async function logRollResult(characterName, block, diceResult, attribuite) {
-    console.log(`${characterName} rolou o dado de ${block} ${diceResult} + ${attribuite} = ${diceResult + attribuite}`);
+async function logRollResult(characterName, block, diceResult, atribute) {
+    console.log(
+        `${characterName} rolou o dado de ${block} 
+        ${diceResult} + ${atribute} = 
+        ${diceResult + atribute}`
+    );
 }
 
 async function playRaceEngine(character1, character2){
@@ -80,7 +84,7 @@ async function playRaceEngine(character1, character2){
         //rolar dados
         let diceResult1 = await rollDice();
         let diceResult2 = await rollDice();
-    //habilidades
+        //habilidades
         let totalTestSkill1 = 0;
         let totalTestSkill2 = 0;
 
@@ -88,9 +92,17 @@ async function playRaceEngine(character1, character2){
             totalTestSkill1 = diceResult1 + character1.Velocidade;
             totalTestSkill2 = diceResult2 + character2.Velocidade;
 
-            await logRollResult(character1.Nome, "Velocidade", diceResult1, character1.Velocidade)
-            await logRollResult(character2.Nome, "Velocidade", diceResult2, character2.Velocidade)
+            await logRollResult(character1.Nome, 
+                "Velocidade", 
+                diceResult1, 
+                character1.Velocidade);
+
+            await logRollResult(character2.Nome, 
+                "Velocidade", 
+                diceResult2, 
+                character2.Velocidade);
         }
+
         if (block == "Curva"){
             totalTestSkill1 = diceResult1 + character1.Manobrabilidade;
             totalTestSkill2 = diceResult2 + character2.Manobrabilidade;
@@ -101,7 +113,33 @@ async function playRaceEngine(character1, character2){
         if (block == "Confronto"){
             let powerResult1 = diceResult1 + character1.Poder;
             let powerResult2 = diceResult2 + character2.Poder;
+
+            console.log(`${character1.Nome} confrontou com ${character2.Nome}! `);
+
+            await logRollResult(character1.Nome, 
+                "poder", 
+                diceResult1, 
+                character1.Poder);
+
+            await logRollResult(character2.Nome, 
+                "poder", 
+                diceResult2, 
+                character2.Poder);
+
+            if(powerResult1 > powerResult2){
+                
+            }
+
         }
+        if (totalTestSkill1 > totalTestSkill2) {
+            console.log(`${character1.Nome} marcou um ponto!`);
+            character1.Pontos++;
+        }else if (totalTestSkill2 > totalTestSkill1) {
+            console.log(`${character2.Nome} marcou um ponto `);
+            character2.Pontos++;
+        }
+        console.log("--------------------------------");
+    
     }
 }
 

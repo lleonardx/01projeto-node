@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "Leonardo Alves",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "01-projeto": "file:"
+  }
 }
